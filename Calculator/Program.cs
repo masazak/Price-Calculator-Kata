@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Calculator
 {
@@ -10,12 +7,13 @@ namespace Calculator
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello Mono World");
+
+
             IList<Product> product = Product.FillProduct();
 
             foreach (var pro in product)
             {
-                Console.WriteLine("the book name = {0} ,UPC={1} ,price={2}" , pro.Name, pro.UPC, pro.Price);
+                Console.WriteLine("the book name = {0} ,UPC={1} ,price={2}", pro.Name, pro.UPC, pro.Price);
             }
 
             while (true)
@@ -29,46 +27,53 @@ namespace Calculator
 
                 }
 
-                    int upcBook = Convert.ToInt32(upcRead);
+                int upcBook = Convert.ToInt32(upcRead);
                 var prod = Product.checkBook(product, upcBook);
                 if (prod == null)
                 {
                     Console.WriteLine("please enter valid upc");
                     continue;
                 }
-                
-                    Console.WriteLine("the book name = {0} ,UPC={1} ,price={2}" , prod.Name, prod.UPC, prod.Price);
 
+                Console.WriteLine("the book name = {0} ,UPC={1} ,price={2}", prod.Name, prod.UPC, prod.Price);
 
+                Console.WriteLine("please enter tax percentage ");
+                decimal tax = ReadFromUser();
 
-                    Console.WriteLine("please enter tax percentage ");
-                 string taxRead = Console.ReadLine();
-                 decimal tax;
-                if(string.IsNullOrWhiteSpace(taxRead))
-                    tax = .2M;
-                else
-                 {   
-                     string[] taxx = taxRead.Split('%');
-                     tax = Decimal.Parse(taxx[0]) / 100;
-                 }    
-                
+                Console.WriteLine("please enter discount percentage ");
+                decimal discount = ReadFromUser();
 
-                calculateTax(tax, prod.Price);
+                decimal Taxamount = calculateAmount(tax, prod.Price);
 
+                decimal discountamount = calculateAmount(discount, prod.Price);
+                decimal finalPrice = prod.Price + Taxamount - discountamount;
+                Console.WriteLine("tax={0} , discount={1} , taxamount={2} , discountamount={3} , price before={4} ,  price after={5}  "
+               , tax, discount, Taxamount, discountamount, prod.Price, finalPrice);
             }
-
-
         }//main
 
 
 
-        public static void calculateTax(decimal tax, decimal Price)
-        {
-            decimal total = Price + (Price * tax);
+            public static decimal ReadFromUser()
+            {
+                string inputRead = Console.ReadLine();
+                decimal read;
+                if (string.IsNullOrWhiteSpace(inputRead))
+                    read = .2M;
+                else
+                {
+                    string[] readd = inputRead.Split('%');
+                    read = Decimal.Parse(readd[0]) / 100;
+                }
 
-            Console.WriteLine("Product price reported as {0}  before tax and  {1} after {2} tax "
-           , Price, System.Math.Round(total, 2), tax);
+                return read;
+            }//ReadFromUser
+
+            public static decimal calculateAmount(decimal amount, decimal Price)
+            {
+                decimal total = Price * amount;
+                return System.Math.Round(total, 2);
+            }
 
         }
-    }
 }

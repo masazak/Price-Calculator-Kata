@@ -1,0 +1,8 @@
+D:\ALL FILES FOR MASA\visual studio\Calculator\Calculator\bin\Debug\Calculator.exe.config
+D:\ALL FILES FOR MASA\visual studio\Calculator\Calculator\bin\Debug\Calculator.exe
+D:\ALL FILES FOR MASA\visual studio\Calculator\Calculator\bin\Debug\Calculator.pdb
+D:\ALL FILES FOR MASA\visual studio\Calculator\Calculator\obj\Debug\Calculator.csproj.AssemblyReference.cache
+D:\ALL FILES FOR MASA\visual studio\Calculator\Calculator\obj\Debug\Calculator.csproj.SuggestedBindingRedirects.cache
+D:\ALL FILES FOR MASA\visual studio\Calculator\Calculator\obj\Debug\Calculator.csproj.CoreCompileInputs.cache
+D:\ALL FILES FOR MASA\visual studio\Calculator\Calculator\obj\Debug\Calculator.exe
+D:\ALL FILES FOR MASA\visual studio\Calculator\Calculator\obj\Debug\Calculator.pdb
