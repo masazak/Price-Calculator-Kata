@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "e49cbe80-5c02-4b03-aa88-db32515c4cff": {
+      "ProjectGuid": "e49cbe80-5c02-4b03-aa88-db32515c4cff",
+      "DisplayName": "Calculator",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
