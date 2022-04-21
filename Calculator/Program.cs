@@ -44,11 +44,20 @@ namespace Calculator
                 decimal discount = ReadDiscountFromUser();
 
                 decimal Taxamount = calculateAmount(tax, prod.Price);
-
                 decimal discountamount = calculateAmount(discount, prod.Price);
                 decimal finalPrice = prod.Price + Taxamount - discountamount;
-                Console.WriteLine("tax={0} , discount={1} , taxamount={2} , discountamount={3} , price before={4} ,  price after={5}  "
-               , tax, discount, Taxamount, discountamount, prod.Price, finalPrice);
+
+                if (discount != 0)
+                {
+                    Console.WriteLine("tax={0} , discount={1} ,price=${2} ,${3} amount which was deduced "
+               , tax, discount,finalPrice, discountamount);
+                }
+                else
+                {
+                    Console.WriteLine("tax={0} , No discount , price=${1} "
+               , tax,finalPrice);
+                }
+                
             }
         }//main
 
