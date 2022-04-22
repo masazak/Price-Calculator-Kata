@@ -41,21 +41,30 @@ namespace Calculator
                 decimal tax = ReadFromUser();
 
                 Console.WriteLine("please enter discount percentage ");
-                decimal discount = ReadFromUser();
+                decimal discount = ReadDiscountFromUser();
 
                 decimal Taxamount = calculateAmount(tax, prod.Price);
-
                 decimal discountamount = calculateAmount(discount, prod.Price);
                 decimal finalPrice = prod.Price + Taxamount - discountamount;
-                Console.WriteLine("tax={0} , discount={1} , taxamount={2} , discountamount={3} , price before={4} ,  price after={5}  "
-               , tax, discount, Taxamount, discountamount, prod.Price, finalPrice);
+
+                if (discount != 0)
+                {
+                    Console.WriteLine("tax={0} , discount={1} ,price=${2} ,${3} amount which was deduced "
+               , tax, discount,finalPrice, discountamount);
+                }
+                else
+                {
+                    Console.WriteLine("tax={0} , No discount , price=${1} "
+               , tax,finalPrice);
+                }
+                
             }
         }//main
 
 
 
-            public static decimal ReadFromUser()
-            {
+         public static decimal ReadFromUser()
+         {
                 string inputRead = Console.ReadLine();
                 decimal read;
                 if (string.IsNullOrWhiteSpace(inputRead))
@@ -67,13 +76,29 @@ namespace Calculator
                 }
 
                 return read;
-            }//ReadFromUser
+         }//ReadFromUser
 
-            public static decimal calculateAmount(decimal amount, decimal Price)
-            {
+
+         public static decimal ReadDiscountFromUser()
+         {
+                string inputRead = Console.ReadLine();
+                decimal read;
+                if (string.IsNullOrWhiteSpace(inputRead))
+                    read = 0.0M;
+                else
+                {
+                    string[] readd = inputRead.Split('%');
+                    read = Decimal.Parse(readd[0]) / 100;
+                }
+
+                return read;
+         }//ReadDiscountFromUser
+
+         public static decimal calculateAmount(decimal amount, decimal Price)
+         {
                 decimal total = Price * amount;
                 return System.Math.Round(total, 2);
-            }
+         }
 
         }
 }
