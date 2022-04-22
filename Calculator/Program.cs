@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Calculator
 {
@@ -7,8 +8,7 @@ namespace Calculator
     {
         public static void Main(string[] args)
         {
-
-
+            
             IList<Product> product = Product.FillProduct();
 
             foreach (var pro in product)

@@ -12,6 +12,8 @@ namespace Calculator
         public int UPC { get; set; }
         public decimal Price { get; set; }
 
+        public static  int[] UPCdiscount =new int[] {12345,12346};
+
         public static IList<Product> FillProduct()
         {
 
