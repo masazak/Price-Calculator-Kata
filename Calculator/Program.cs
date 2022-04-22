@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Calculator
 {
@@ -7,7 +8,7 @@ namespace Calculator
     {
         public static void Main(string[] args)
         {
-
+            
 
             IList<Product> product = Product.FillProduct();
 
@@ -45,18 +46,27 @@ namespace Calculator
 
                 decimal Taxamount = calculateAmount(tax, prod.Price);
                 decimal discountamount = calculateAmount(discount, prod.Price);
-                decimal finalPrice = prod.Price + Taxamount - discountamount;
+                
+                decimal finalPrice=prod.Price + Taxamount - discountamount;
+              
+                    if(Product.UPCdiscount.Contains(upcBook))
+                    {
+                        decimal upcdiscount= .07M ;
+                        decimal UPCdiscountAmount = calculateAmount(upcdiscount, prod.Price);
+                        decimal totalDiscount =discountamount + UPCdiscountAmount;
+                        finalPrice = prod.Price + Taxamount - totalDiscount;
 
-                if (discount != 0)
-                {
-                    Console.WriteLine("tax={0} , discount={1} ,price=${2} ,${3} amount which was deduced "
-               , tax, discount,finalPrice, discountamount);
-                }
-                else
-                {
-                    Console.WriteLine("tax={0} , No discount , price=${1} "
-               , tax,finalPrice);
-                }
+                         Console.WriteLine("tax={0} , discount = {1} ,upc-discount={2}, tax Amount={3},discount Amount={4} ,UPC Discount Amount={5} ,price={6} , totl discount Amount={7} "
+                         , tax,discount,upcdiscount,Taxamount,discountamount,UPCdiscountAmount,finalPrice,totalDiscount);
+                    }//if contains
+
+                    else
+                    {
+                        
+                        Console.WriteLine("tax={0} , discount = {1} , tax Amount={2},discount Amount={3} ,price={4} , totl discount Amount={5} "
+                         , tax,discount,Taxamount,discountamount,finalPrice,discountamount);
+                    }
+              
                 
             }
         }//main
