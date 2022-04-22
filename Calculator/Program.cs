@@ -53,6 +53,11 @@ namespace Calculator
                     {
                         decimal upcdiscount= .07M ;
                         decimal UPCdiscountAmount = calculateAmount(upcdiscount, prod.Price);
+                        decimal remainingPrice = prod.Price - UPCdiscountAmount;
+                        
+                        Taxamount =calculateAmount(tax, remainingPrice);
+                        discountamount=calculateAmount(discount, remainingPrice);
+
                         decimal totalDiscount =discountamount + UPCdiscountAmount;
                         finalPrice = prod.Price + Taxamount - totalDiscount;
 
