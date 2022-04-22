@@ -42,34 +42,39 @@ namespace Calculator
                 decimal tax = ReadFromUser();
 
                 Console.WriteLine("please enter discount percentage ");
-                decimal discount = ReadDiscountFromUser();
+                decimal discount = ReadValueFromUser();
+
+                Console.WriteLine("please enter packaging cost percentage ");
+                decimal packaging = ReadValueFromUser();
+
+                Console.WriteLine("please enter transport cost $ ");
+                decimal transport = ReadTransportFromUser();
 
                 decimal Taxamount = calculateAmount(tax, prod.Price);
                 decimal discountamount = calculateAmount(discount, prod.Price);
                 
-                decimal finalPrice=prod.Price + Taxamount - discountamount;
+                
+                decimal packagingAmount=calculateAmount(packaging, prod.Price);
+
+                decimal finalPrice=prod.Price + Taxamount - discountamount+packagingAmount+transport;
               
                     if(Product.UPCdiscount.Contains(upcBook))
                     {
                         decimal upcdiscount= .07M ;
                         decimal UPCdiscountAmount = calculateAmount(upcdiscount, prod.Price);
-                        decimal remainingPrice = prod.Price - UPCdiscountAmount;
-                        
-                        Taxamount =calculateAmount(tax, remainingPrice);
-                        discountamount=calculateAmount(discount, remainingPrice);
 
                         decimal totalDiscount =discountamount + UPCdiscountAmount;
-                        finalPrice = prod.Price + Taxamount - totalDiscount;
+                        finalPrice = prod.Price + Taxamount - totalDiscount+packagingAmount+transport;
 
-                         Console.WriteLine("tax={0} , discount = {1} ,upc-discount={2}, tax Amount={3},discount Amount={4} ,UPC Discount Amount={5} ,price={6} , totl discount Amount={7} "
-                         , tax,discount,upcdiscount,Taxamount,discountamount,UPCdiscountAmount,finalPrice,totalDiscount);
+                         Console.WriteLine("cost ={0} , tax amount={1} , total discount={2} , Packaging amount={3} , transport={4} , total price={5} "
+                         , prod.Price,Taxamount,totalDiscount,packagingAmount,transport,finalPrice);
                     }//if contains
 
                     else
                     {
                         
-                        Console.WriteLine("tax={0} , discount = {1} , tax Amount={2},discount Amount={3} ,price={4} , totl discount Amount={5} "
-                         , tax,discount,Taxamount,discountamount,finalPrice,discountamount);
+                        Console.WriteLine("cost ={0} , tax amount={1} , total discount={2} , Packaging amount={3} , transport={4} , total price={5} "
+                         , prod.Price,Taxamount,discountamount,packagingAmount,transport,finalPrice);
                     }
               
                 
@@ -94,7 +99,7 @@ namespace Calculator
          }//ReadFromUser
 
 
-         public static decimal ReadDiscountFromUser()
+         public static decimal ReadValueFromUser()
          {
                 string inputRead = Console.ReadLine();
                 decimal read;
@@ -108,6 +113,19 @@ namespace Calculator
 
                 return read;
          }//ReadDiscountFromUser
+
+        
+         public static decimal ReadTransportFromUser()
+         {
+                string inputRead = Console.ReadLine();
+                decimal read;
+                if (string.IsNullOrWhiteSpace(inputRead))
+                    read = 0.0M;
+               else
+                    read = Decimal.Parse(inputRead);
+
+                return read;
+         }//ReadTransportFromUser
 
          public static decimal calculateAmount(decimal amount, decimal Price)
          {
