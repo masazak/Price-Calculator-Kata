@@ -59,6 +59,10 @@ namespace Calculator
                 Console.WriteLine("please select method to calculate discount, 1:additive ,2:multiplicative ");
                 int number = Convert.ToInt32(Console.ReadLine());
 
+                Console.WriteLine("please enter cap");
+                decimal cap = ReadCapFromUser(prod.Price);
+                decimal finalDiscount=0.0M;
+
                 if(Product.UPCdiscount.Contains(upcBook))
                  {
                         decimal upcdiscount= .07M ;
@@ -78,18 +82,34 @@ namespace Calculator
                             Console.WriteLine("please enter 1 or 2");
                             continue;
                         }
+                        
+                        if(cap <= totalDiscount)
+                        { 
+                            finalDiscount =cap;
+                        }
+                        else
+                        {
+                            finalDiscount=totalDiscount;
+                        }
 
-                        finalPrice = prod.Price + Taxamount - totalDiscount+packagingAmount+transport;
+                        finalPrice = prod.Price + Taxamount - finalDiscount+packagingAmount+transport;
 
                          Console.WriteLine("cost ={0} , tax amount={1} , total discount={2} , Packaging amount={3} , transport={4} , total price={5} "
-                           , prod.Price,Taxamount,totalDiscount,packagingAmount,transport,finalPrice);
+                           , prod.Price,Taxamount,finalDiscount,packagingAmount,transport,finalPrice);
                  }//if contains
 
               else
-               {
+               {       if(cap <= discountamount)
+                        { 
+                            finalDiscount =cap;
+                        }
+                        else
+                        {
+                            finalDiscount=discountamount;
+                        }
                         
                         Console.WriteLine("cost ={0} , tax amount={1} , total discount={2} , Packaging amount={3} , transport={4} , total price={5} "
-                         , prod.Price,Taxamount,discountamount,packagingAmount,transport,finalPrice);
+                         , prod.Price,Taxamount,finalDiscount,packagingAmount,transport,finalPrice);
                }
 
              }
@@ -152,6 +172,25 @@ namespace Calculator
                 decimal total = (Price - discountamount) * upcdiscount;
                 return System.Math.Round(total, 2);
         }
+
+        public static decimal ReadCapFromUser(decimal price)
+         {
+                string inputRead = Console.ReadLine();
+                decimal read;
+                if(inputRead.Contains( '$' ))
+                {
+                   string value=inputRead.Trim('$');
+                    read=Decimal.Parse(value);
+                }
+                else
+                {
+                    string[] readd = inputRead.Split('%');
+                    decimal num = Decimal.Parse(readd[0]) / 100;
+                    read=price * num;
+                }
+
+                return read;
+         }//ReadDiscountFromUser
 
         }
 }
