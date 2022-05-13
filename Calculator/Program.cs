@@ -36,7 +36,11 @@ namespace Calculator
                     continue;
                 }
 
-                Console.WriteLine("the book name = {0} ,UPC={1} ,price={2}", prod.Name, prod.UPC, prod.Price);
+                Console.WriteLine("enter currency the defult is USD");
+                string codename = Console.ReadLine();
+                decimal code=ChooseCurrency(codename);
+                decimal productprice=prod.Price*code;
+                Console.WriteLine("the book name =" +prod.Name + "UPC= "+prod.UPC+ "price= "+productprice + codename );
 
                 Console.WriteLine("please enter tax percentage ");
                 decimal tax = ReadFromUser();
@@ -50,23 +54,23 @@ namespace Calculator
                 Console.WriteLine("please enter transport cost $ ");
                 decimal transport = ReadTransportFromUser();
 
-                decimal Taxamount = calculateAmount(tax, prod.Price);
-                decimal discountamount = calculateAmount(discount, prod.Price);
-                decimal packagingAmount=calculateAmount(packaging, prod.Price);
+                decimal Taxamount = calculateAmount(tax, productprice);
+                decimal discountamount = calculateAmount(discount, productprice);
+                decimal packagingAmount=calculateAmount(packaging, productprice);
 
-                decimal finalPrice=prod.Price + Taxamount - discountamount+packagingAmount+transport;
+                decimal finalPrice=productprice + Taxamount - discountamount+packagingAmount+transport;
                 
                 Console.WriteLine("please select method to calculate discount, 1:additive ,2:multiplicative ");
                 int number = Convert.ToInt32(Console.ReadLine());
 
                 Console.WriteLine("please enter cap");
-                decimal cap = ReadCapFromUser(prod.Price);
+                decimal cap = ReadCapFromUser(productprice);
                 decimal finalDiscount=0.0M;
 
                 if(Product.UPCdiscount.Contains(upcBook))
                  {
                         decimal upcdiscount= .07M ;
-                        decimal UPCdiscountAmount = calculateAmount(upcdiscount, prod.Price);
+                        decimal UPCdiscountAmount = calculateAmount(upcdiscount, productprice);
                         decimal totalDiscount=0.0M;
                         if(number == 1)
                         {
@@ -74,7 +78,7 @@ namespace Calculator
                          }
                         else if (number == 2)
                         {   
-                            decimal discountTow = multiplicativeDiscounts(discountamount,prod.Price,upcdiscount);
+                            decimal discountTow = multiplicativeDiscounts(discountamount,productprice,upcdiscount);
                             totalDiscount =discountamount + discountTow ;
                         }
                         else
@@ -92,10 +96,10 @@ namespace Calculator
                             finalDiscount=totalDiscount;
                         }
 
-                        finalPrice = prod.Price + Taxamount - finalDiscount+packagingAmount+transport;
+                        finalPrice = productprice+ Taxamount - finalDiscount+packagingAmount+transport;
 
                          Console.WriteLine("cost ={0} , tax amount={1} , total discount={2} , Packaging amount={3} , transport={4} , total price={5} "
-                           , prod.Price,Taxamount,finalDiscount,packagingAmount,transport,finalPrice);
+                           , productprice,Taxamount,finalDiscount,packagingAmount,transport,finalPrice);
                  }//if contains
 
               else
@@ -109,7 +113,7 @@ namespace Calculator
                         }
                         
                         Console.WriteLine("cost ={0} , tax amount={1} , total discount={2} , Packaging amount={3} , transport={4} , total price={5} "
-                         , prod.Price,Taxamount,finalDiscount,packagingAmount,transport,finalPrice);
+                         , productprice,Taxamount,finalDiscount,packagingAmount,transport,finalPrice);
                }
 
              }
@@ -191,6 +195,24 @@ namespace Calculator
 
                 return read;
          }//ReadDiscountFromUser
-
+        public static decimal ChooseCurrency(string code)
+        {
+            switch (code.ToUpper())
+            {
+                case "USD":
+                    return 1M;
+                    break;
+                case "GBP":
+                    return .82M;
+                    break;
+                case "JPY":
+                    return 128.40M;
+                    break;
+                default:
+                    return 1;
+                    break;
+            }
         }
+       
+}
 }
