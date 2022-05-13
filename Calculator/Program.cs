@@ -99,7 +99,7 @@ namespace Calculator
                         finalPrice = productprice+ Taxamount - finalDiscount+packagingAmount+transport;
 
                          Console.WriteLine("cost ={0} , tax amount={1} , total discount={2} , Packaging amount={3} , transport={4} , total price={5} "
-                           , productprice,Taxamount,finalDiscount,packagingAmount,transport,finalPrice);
+                           , productprice,System.Math.Round(Taxamount,2),System.Math.Round(finalDiscount,2),System.Math.Round(packagingAmount,2),System.Math.Round(transport,2),System.Math.Round(finalPrice,2));
                  }//if contains
 
               else
@@ -113,7 +113,7 @@ namespace Calculator
                         }
                         
                         Console.WriteLine("cost ={0} , tax amount={1} , total discount={2} , Packaging amount={3} , transport={4} , total price={5} "
-                         , productprice,Taxamount,finalDiscount,packagingAmount,transport,finalPrice);
+                         , productprice,System.Math.Round(Taxamount,2),System.Math.Round(finalDiscount,2),System.Math.Round(packagingAmount,2),System.Math.Round(transport,2),System.Math.Round(finalPrice,2));
                }
 
              }
@@ -168,13 +168,13 @@ namespace Calculator
          public static decimal calculateAmount(decimal amount, decimal Price)
          {
                 decimal total = Price * amount;
-                return System.Math.Round(total, 2);
+                return System.Math.Round(total, 4);
          }
 
         public static decimal multiplicativeDiscounts(decimal discountamount,decimal Price,decimal upcdiscount)
         {
                 decimal total = (Price - discountamount) * upcdiscount;
-                return System.Math.Round(total, 2);
+                return System.Math.Round(total, 4);
         }
 
         public static decimal ReadCapFromUser(decimal price)
